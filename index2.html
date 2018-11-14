@@ -1,0 +1,152 @@
+
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Pagina nueva 1</title>
+<style>
+#chartdiv {
+	width	: 100%;
+	height	: 500px;
+  font-family: Verdana;
+  font-size: 12px;
+}							
+</style>
+
+<script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+<script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
+<script type="text/javascript" src="http://www.amcharts.com/lib/3/amstock.js"></script>
+
+<script type="text/javascript">
+function generateChartData(year) {
+  var data = [];
+  var firstDate = new Date(year, 0, 1);
+  firstDate.setHours(0, 0, 0, 0);
+
+  for (var i = 0; i < 365; i++) {
+    var newDate = new Date(firstDate);
+    newDate.setDate(newDate.getDate() + i);
+    data.push({
+      date: newDate,
+      value: Math.round(Math.random() * (40 + i)) + 100 + i
+    });
+  }
+  return data;
+}
+
+var chartData2015 = generateChartData(2016);
+var chartData2014 = generateChartData(2015);
+var chartData2013 = generateChartData(2014);
+
+
+AmCharts.addInitHandler(function(chart) {
+  for(var x = 0; x < chart.dataSets.length; x++) {
+    var ds = chart.dataSets[x];
+    if (ds.baseYear !== undefined) {
+      for(var i = 0; i < ds.dataProvider.length; i++) {
+        var dp = ds.dataProvider[i];
+        dp[ds.categoryField].setFullYear(ds.baseYear);
+      }
+    }
+  }
+}, ["stock"]);
+
+var chart = AmCharts.makeChart("chartdiv", {
+  "type": "stock",
+  "theme": "light",
+  "dataSets": [{
+      "title": "2016",
+      "fieldMappings": [{
+        "fromField": "value",
+        "toField": "value"
+      }],
+      "dataProvider": chartData2015,
+      "categoryField": "date"
+    }, {
+      "title": "2015",
+      "fieldMappings": [{
+        "fromField": "value",
+        "toField": "value"
+      }],
+      "dataProvider": chartData2014,
+      "categoryField": "date",
+      "compared": true,
+      "baseYear": 2016
+    }, {
+      "title": "2014",
+      "fieldMappings": [{
+        "fromField": "value",
+        "toField": "value"
+      }],
+      "dataProvider": chartData2013,
+      "categoryField": "date",
+      "compared": true,
+      "baseYear": 2016
+    }],
+
+  "panels": [{
+    "title": "Value",
+    "categoryAxis": {},
+    "stockGraphs": [{
+      "id": "g1",
+      "valueField": "value",
+      "lineThickness": 2,
+      "comparable": true,
+      "compareField": "value",
+      "balloonText": "[[title]]:<b>[[value]]</b>",
+      "compareGraphBalloonText": "[[title]]:<b>[[value]]</b>",
+      "compareGraph": {
+        "dashLength": 5,
+        "lineThickness": 2
+      }
+    }],
+
+    "stockLegend": {
+      "periodValueTextComparing": "[[percents.value.close]]%",
+      "periodValueTextRegular": "[[value.close]]"
+    }
+  }],
+  
+  "panelsSettings": {
+    "recalculateToPercents": "never"
+  },
+
+  "chartScrollbarSettings": {
+    "graph": "g1"
+  },
+
+  "chartCursorSettings": {
+    "valueBalloonsEnabled": true,
+    "fullWidth": true,
+    "cursorAlpha": 0.1,
+    "valueLineBalloonEnabled": true,
+    "valueLineEnabled": true,
+    "valueLineAlpha": 0.5
+  },
+
+  "periodSelector": {
+    "position": "bottom",
+    "periods": [{
+      "period": "MM",
+      "count": 1,
+      "label": "1 month"
+    }, {
+      "period": "YYYY",
+      "selected": true,
+      "count": 1,
+      "label": "1 year"
+    }, {
+      "period": "MAX",
+      "label": "MAX"
+    }]
+  }
+});
+</script>
+</head>
+<body>
+<div id="chartdiv"></div>
+</body>
+</html>
+
