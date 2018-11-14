@@ -1,0 +1,158 @@
+<!-- Styles -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/amstock.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+<!-- Chart code -->
+<script>
+// Returns an array of dates between the two dates
+var getDates = function(startDate, endDate) {
+  var dates = [],
+      currentDate = startDate,
+      addDays = function(days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+      };
+  while (currentDate <= endDate) {
+    dates.push(currentDate);
+    currentDate = addDays.call(currentDate, 1);
+  }
+  return dates;
+};
+
+// Usage
+var today = new Date(Date.now());
+var threeMonth = new Date(today);
+threeMonth.setMonth(today.getMonth()-3)
+
+var dates = getDates(threeMonth, today);                                                                                                           
+
+//var chartDataOrange = generateChartData(dates);
+var chartData = generateChartData(dates);
+
+function generateChartData(dates) {
+   var chartData = [];
+   for ( var i = 0; i < dates.length; i++ ) {
+    chartData.push( {
+      "date": dates[i],
+      "v1": Math.round( Math.random() * ( 40 + i ) ) + 100 + i,
+      "v2": Math.round( Math.random() * ( 100 + i ) ) + 200 + i,
+      "v3": Math.round( Math.random() * ( 100 + i ) ) + 200,
+      "v4": Math.round( Math.random() * ( 100 + i ) ) + 200 + i
+    } );
+  }
+  return chartData;
+}
+
+var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "stock",
+  "dataSets": [ {
+    "fieldMappings": [ {
+      "fromField": "v1",
+      "toField": "v1"
+    }, {
+      "fromField": "v2",
+      "toField": "v2"
+    }, {
+      "fromField": "v3",
+      "toField": "v3"
+    }, {
+      "fromField": "v4",
+      "toField": "v4"
+    } ],
+    "dataProvider": chartData,
+    "categoryField": "date"
+  } ],
+
+  "panels": [ {
+    "stockGraphs": [ {
+      "id": "g1",
+      "title": "Waiting",
+      "valueField": "v1",
+      "valueAxis": "a1",
+      "lineColor": "#FF6600",
+      "useDataSetColors": false
+    }, {
+      "id": "g2",
+      "title": "Active",
+      "valueField": "v2",
+      "valueAxis": "a2",
+      "lineColor": "#FCD202",
+      "useDataSetColors": false
+    }, {
+      "id": "g3",
+      "title": "Expired",
+      "valueField": "v3",
+      "valueAxis": "a3",
+      "lineColor": "#008000",
+      "useDataSetColors": false
+    }, {
+      "id": "g4",
+      "title": "Redeemed",
+      "valueField": "v4",
+      "valueAxis": "a4",
+      "lineColor": "#0D8ECF",
+      "useDataSetColors": false
+    } ],
+    "valueAxes": [ {
+      "id": "a1",
+      "axisColor": "#FF6600",
+      "position": "left",
+      "offset": 0
+    }],
+    "stockLegend": {}
+  } ],
+  "panelsSettings": {
+    "marginLeft": 100, // inside: false requires that to gain some space
+    "marginRight": 100
+  },
+  "valueAxesSettings": {
+    "axisThickness": 2,
+    "gridAlpha": 0,
+    "axisAlpha": 1,
+    "inside": false
+  },
+  "chartScrollbarSettings": {
+    "enabled": false
+  },
+  "chartCursorSettings": {
+    "valueLineEnabled": true,
+    "valueLineBalloonEnabled": true
+  },
+  "periodSelector": {
+    "periodsText":"Period: ",
+    "position": "top",
+    "dateFormat": "YYYY-MM-DD JJ:NN",
+    "inputFieldWidth": 150,
+    "inputFieldsEnabled":false,
+    "periods": [ {
+      "period": "WW",
+      "count": 1,
+      "label": "Sliding week"
+    }, {
+      "period": "MM",
+      "count": 1,
+      "label": "Sliding month"
+    }, {
+      "period": "MM",
+      "count": 3,
+      "label": "Last months"
+    }]
+  }
+} );
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>	
