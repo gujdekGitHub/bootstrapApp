@@ -162,7 +162,6 @@ AmCharts.themes.light = {
 	PeriodInputField: {
 		color: "#FFFFFF",
 		backgroundColor: "#2C2C2C",
-		background: "transparent",
 		border: "1px solid rgba(0, 0, 0, .3)",
 		outline: "none"
 	},
