@@ -168,7 +168,7 @@ AmCharts.themes.light = {
 
 	DataSetSelector: {
 
-		color: "#000000",
+		color: "#EA6263",
 		selectedBackgroundColor: "#EA6263",
 		rollOverBackgroundColor: "#a8b0e4"
 	},
