@@ -136,7 +136,7 @@ AmCharts.themes.light = {
 	},
 
 	PeriodButton: {
-		color: "#000000",
+		color: "#EA6263",
 		background: "transparent",
 		opacity: 0.7,
 		border: "1px solid rgba(0, 0, 0, .3)",
