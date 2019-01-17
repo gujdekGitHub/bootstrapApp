@@ -148,7 +148,7 @@ AmCharts.themes.light = {
 	},
 
 	PeriodButtonSelected: {
-		color: "#000000",
+		color: "#697E8C",
 		backgroundColor: "#b9cdf5",
 		border: "1px solid rgba(0, 0, 0, .3)",
 		MozBorderRadius: "5px",
