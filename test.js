@@ -174,7 +174,7 @@ AmCharts.themes.light = {
 	},
 
 	DataSetCompareList: {
-		color: "#000000",
+		color: "#EA6263",
 		lineHeight: "100%",
 		boxSizing: "initial",
 		webkitBoxSizing: "initial",
