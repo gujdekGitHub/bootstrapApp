@@ -148,7 +148,7 @@ AmCharts.themes.light = {
 	},
 
 	PeriodButtonSelected: {
-		color: "#697E8C",
+		color: "#EA6263",
 		backgroundColor: "#b9cdf5",
 		border: "1px solid rgba(0, 0, 0, .3)",
 		MozBorderRadius: "5px",
@@ -169,7 +169,7 @@ AmCharts.themes.light = {
 	DataSetSelector: {
 
 		color: "#000000",
-		selectedBackgroundColor: "#b9cdf5",
+		selectedBackgroundColor: "#EA6263",
 		rollOverBackgroundColor: "#a8b0e4"
 	},
 
